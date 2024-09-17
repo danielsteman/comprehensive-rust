@@ -1,4 +1,5 @@
 mod collatz_length;
+mod transpose;
 
 fn main() {
     for n in 1..5 {
