@@ -14,7 +14,6 @@ pub fn collatz_length(mut n: i32) -> u32 {
 
 #[cfg(test)]
 mod tests {
-    // Note this useful idiom: importing names from outer (for mod tests) scope.
     use super::*;
 
     #[test]
