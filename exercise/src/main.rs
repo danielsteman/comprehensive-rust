@@ -1,4 +1,5 @@
 mod collatz_length;
+mod geometry;
 mod transpose;
 
 fn main() {
