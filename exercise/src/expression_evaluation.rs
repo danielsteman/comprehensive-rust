@@ -24,14 +24,27 @@ enum Expression {
 fn eval(e: Expression) -> Result<i64, String> {
     match e {
         Expression::Op { op, left, right } => {
-            let left_expr = *left;
-            let right_expr = *right;
+            let left_res = match eval(*left) {
+                Ok(v) => v,
+                Err(msg) => panic!("Could not evaluate left expression: {msg}"),
+            };
+            let right_res = match eval(*right) {
+                Ok(v) => v,
+                Err(msg) => panic!("Could not evaluate right expression: {msg}"),
+            };
 
-            match left_expr {
-                Expression::Op { op, left, right } => eval(left_expr),
-            }
-
-            Ok(left_expr + right_expr)
+            Ok(match op {
+                Operation::Add => left_res + right_res,
+                Operation::Sub => left_res - right_res,
+                Operation::Mul => left_res * right_res,
+                Operation::Div => {
+                    if right_res == 0 {
+                        return Err(String::from("division by zero"));
+                    } else {
+                        left_res / right_res
+                    }
+                }
+            })
         }
         Expression::Value(result) => Ok(result),
     }
