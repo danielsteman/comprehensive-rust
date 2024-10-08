@@ -1,4 +1,5 @@
 mod collatz_length;
+mod expression_evaluation;
 mod geometry;
 mod transpose;
 
