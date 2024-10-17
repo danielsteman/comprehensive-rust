@@ -17,13 +17,15 @@ impl Logger for StdoutLogger {
 
 #[allow(dead_code)]
 struct VerbosityFilter {
-    max_verbosity: i8,
+    max_verbosity: usize,
     inner: StdoutLogger,
 }
 
 impl Logger for VerbosityFilter {
     fn log(&self, verbosity: u8, message: &str) {
-        println!("verbosity={verbosity}: {message}")
+        if message.len() <= self.max_verbosity {
+            println!("verbosity={verbosity}: {message}");
+        }
     }
 }
 
