@@ -1,8 +1,10 @@
+#[allow(dead_code)]
 pub trait Logger {
     /// Log a message at the given verbosity level.
     fn log(&self, verbosity: u8, message: &str);
 }
 
+#[allow(dead_code)]
 struct StdoutLogger;
 
 impl Logger for StdoutLogger {
@@ -12,6 +14,18 @@ impl Logger for StdoutLogger {
 }
 
 // TODO: Define and implement `VerbosityFilter`.
+
+#[allow(dead_code)]
+struct VerbosityFilter {
+    max_verbosity: i8,
+    inner: StdoutLogger,
+}
+
+impl Logger for VerbosityFilter {
+    fn log(&self, verbosity: u8, message: &str) {
+        println!("verbosity={verbosity}: {message}")
+    }
+}
 
 #[cfg(test)]
 mod tests {
